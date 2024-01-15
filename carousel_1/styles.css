@@ -1,0 +1,42 @@
+.carousel {
+    position: relative;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.carousel-inner {
+    display: flex;
+    transition: transform 0.6s ease; /* Добавляем плавную анимацию для смены слайдов */
+}
+
+.carousel-item {
+    flex: 0 0 100%; /* Устанавливаем ширину слайда */
+}
+
+.carousel-item.active {
+    opacity: 1; /* Делаем активный слайд видимым */
+}
+
+.carousel-item.next {
+    transform: translateX(-100%); /* Сдвигаем слайд влево для показа следующего слайда */
+}
+
+.carousel-item.prev {
+    transform: translateX(100%); /* Сдвигаем слайд вправо для показа предыдущего слайда */
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.carousel-control-prev {
+    left: 10px;
+}
+
+.carousel-control-next {
+    right: 10px;
+}
