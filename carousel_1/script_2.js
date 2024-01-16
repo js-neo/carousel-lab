@@ -7,29 +7,40 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function showSlide(slideIndex) {
         carouselItems.forEach((item, index) => {
+            !isInitialRender && (prevSlide = carouselItems[prevSlideIndex]);
+             if (index === slideIndex && !isInitialRender) {
 
-            if (index === slideIndex && !isInitialRender) {
-                prevSlide = carouselItems[prevSlideIndex];
                 prevSlide.classList.add('next');
                 setTimeout(() => {
                     item.classList.add('active');
                     setTimeout(() => {
                         item.classList.add('next');
-                    }, 500)
+                    }, 500);
+                }, 0);
+                setTimeout(() => {
+                    prevSlide.classList.remove('next', 'active');
+                    item.classList.remove('next');
+                    if (currentSlide === carouselItems.length - 3) {
+                        item.classList.remove('active');
+                        carouselItems[carouselItems.length - 2].classList.add('active');
+                        currentSlide = carouselItems.length - 2;
+                    }
+                    if (currentSlide === carouselItems.length - 1) {
+                        item.classList.remove('active');
+                        carouselItems[0].classList.add('active');
+                        currentSlide = 0;
+                    }
+                }, 2000);
 
-                    setTimeout(() => {
-                        prevSlide.classList.remove('next', 'active');
-                        item.classList.remove('next');
-                    }, 3000);
-                }, 1000);
             }
         });
     }
 
     function showNextSlide() {
-        isInitialRender = false;
+
         prevSlideIndex = currentSlide;
         currentSlide = (currentSlide + 1) % carouselItems.length;
+        isInitialRender = false;
         showSlide(currentSlide);
     }
 

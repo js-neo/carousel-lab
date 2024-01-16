@@ -1,12 +1,10 @@
 .carousel {
     position: relative;
     height: calc(100vh - 20px);
-    border: 1px solid green;
 }
 
 .carousel-inner {
     position: relative;
-    border: 1px solid blue;
     height: 100%;
     overflow: hidden;
     display: flex;
@@ -18,17 +16,11 @@
     position: relative;
     display: none;
     flex: 0 0 100%;
-    border: 2px solid red;
-    background-color: antiquewhite;
 }
 
 .carousel-item.next {
     transform: translateX(-100%); /* Сдвигаем слайд влево для показа следующего слайда */
-    transition: transform 2s ease;
-}
-.carousel-item.next-prev {
-    transform: translateX(-200%); /* Сдвигаем слайд влево для показа следующего слайда */
-    transition: transform 2s ease;
+    transition: transform 0.6s ease;
 }
 
 .carousel-item.prev {
