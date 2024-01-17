@@ -1,43 +1,42 @@
 document.addEventListener('DOMContentLoaded', function () {
     const carouselItems = document.querySelectorAll('.carousel-item');
-    let currentSlide = 0;
+    let currentSlide = 1;
     let isInitialRender = true;
+    let direction = 'next';
     let prevSlideIndex = null;
     let prevSlide = null;
 
     function showSlide(slideIndex) {
         carouselItems.forEach((item, index) => {
             !isInitialRender && (prevSlide = carouselItems[prevSlideIndex]);
-             if (index === slideIndex && !isInitialRender) {
-
-                prevSlide.classList.add('next');
-                setTimeout(() => {
-                    item.classList.add('active');
+            if (index === slideIndex && !isInitialRender) {
+                if (direction === 'next') {
+                    prevSlide.classList.add('next');
                     setTimeout(() => {
-                        item.classList.add('next');
-                    }, 500);
-                }, 0);
-                setTimeout(() => {
-                    prevSlide.classList.remove('next', 'active');
-                    item.classList.remove('next');
-                    if (currentSlide === carouselItems.length - 3) {
-                        item.classList.remove('active');
-                        carouselItems[carouselItems.length - 2].classList.add('active');
-                        currentSlide = carouselItems.length - 2;
-                    }
-                    if (currentSlide === carouselItems.length - 1) {
-                        item.classList.remove('active');
-                        carouselItems[0].classList.add('active');
-                        currentSlide = 0;
-                    }
-                }, 2000);
-
+                        item.classList.add('active');
+                        setTimeout(() => {
+                            item.classList.add('next');
+                        }, 500);
+                    }, 0);
+                    setTimeout(() => {
+                        prevSlide.classList.remove('next', 'active');
+                        item.classList.remove('next');
+                        if (currentSlide === carouselItems.length - 1) {
+                            item.classList.remove('active');
+                            carouselItems[1].classList.add('active');
+                            currentSlide = 1;
+                        }
+                    }, 2000);
+                }
+                if (direction === 'prev') {
+                    console.log("currentSlide:", currentSlide);
+                }
             }
         });
     }
 
     function showNextSlide() {
-
+        direction = 'next';
         prevSlideIndex = currentSlide;
         currentSlide = (currentSlide + 1) % carouselItems.length;
         isInitialRender = false;
@@ -45,9 +44,10 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function showPrevSlide() {
-        isInitialRender = false;
+        direction = 'prev';
         prevSlideIndex = currentSlide;
         currentSlide = (currentSlide - 1 + carouselItems.length) % carouselItems.length;
+        isInitialRender = false;
         showSlide(currentSlide);
     }
 

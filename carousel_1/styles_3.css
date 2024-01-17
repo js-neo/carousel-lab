@@ -25,7 +25,7 @@
 
 .carousel-item.prev {
     transform: translateX(100%); /* Сдвигаем слайд вправо для показа предыдущего слайда */
-    transition: transform 0.6s ease;
+    transition: transform 2s ease;
 
 }
 
