@@ -1,42 +1,65 @@
 .carousel {
     position: relative;
-    max-width: 100%;
-    overflow: hidden;
+    height: calc(100vh - 20px);
 }
 
 .carousel-inner {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
     display: flex;
-    transition: transform 0.6s ease; /* Добавляем плавную анимацию для смены слайдов */
+    flex-direction: row;
 }
 
 .carousel-item {
-    flex: 0 0 100%; /* Устанавливаем ширину слайда */
-}
-
-.carousel-item.active {
-    opacity: 1; /* Делаем активный слайд видимым */
+    position: relative;
+    display: none;
+    flex: 0 0 100%;
 }
 
 .carousel-item.next {
-    transform: translateX(-100%); /* Сдвигаем слайд влево для показа следующего слайда */
+    transform: translateX(-100%);
+    transition: transform 1s ease;
 }
 
 .carousel-item.prev {
-    transform: translateX(100%); /* Сдвигаем слайд вправо для показа предыдущего слайда */
+    transform: translateX(100%);
+    transition: transform 1s ease;
+}
+
+.active > img {
+    max-width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    display: block;
+    margin: 0 auto;
+}
+
+.carousel-item.active {
+    display: block; /* Делаем активный слайд видимым */
 }
 
 .carousel-control-prev,
 .carousel-control-next {
     position: absolute;
     top: 50%;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    color: #fff;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
     transform: translateY(-50%);
-    cursor: pointer;
 }
 
 .carousel-control-prev {
-    left: 10px;
+    left: 1rem;
 }
 
 .carousel-control-next {
-    right: 10px;
+    right: 1rem;
 }
