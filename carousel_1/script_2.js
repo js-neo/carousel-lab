@@ -12,12 +12,10 @@ document.addEventListener('DOMContentLoaded', function () {
             if (index === slideIndex && !isInitialRender) {
                 if (direction === 'next') {
                     prevSlide.classList.add('next');
-                    setTimeout(() => {
                         item.classList.add('active');
                         setTimeout(() => {
                             item.classList.add('next');
-                        }, 500);
-                    }, 0);
+                        }, 0);
                     setTimeout(() => {
                         prevSlide.classList.remove('next', 'active');
                         item.classList.remove('next');
@@ -26,29 +24,48 @@ document.addEventListener('DOMContentLoaded', function () {
                             carouselItems[1].classList.add('active');
                             currentSlide = 1;
                         }
-                    }, 2000);
+                    }, 1000);
                 }
                 if (direction === 'prev') {
-                    console.log("currentSlide:", currentSlide);
+                    prevSlide.classList.add('prev');
+                    item.classList.add('active');
+                    setTimeout(() => {
+                        item.classList.add('prev');
+                    }, 0);
+                    setTimeout(() => {
+                        prevSlide.classList.remove('prev', 'active');
+                        item.classList.remove('prev');
+                        if (currentSlide === 0) {
+                            item.classList.remove('active');
+                            carouselItems[carouselItems.length - 2].classList.add('active');
+                            currentSlide = carouselItems.length - 2;
+                        }
+                    }, 1000);
                 }
             }
         });
     }
 
-    function showNextSlide() {
-        direction = 'next';
+
+    const handleChangeSlide = (direction) => {
+
         prevSlideIndex = currentSlide;
-        currentSlide = (currentSlide + 1) % carouselItems.length;
+        currentSlide = direction === 'next' ?
+            (currentSlide + 1) % carouselItems.length :
+            (currentSlide - 1 + carouselItems.length) % carouselItems.length;
         isInitialRender = false;
         showSlide(currentSlide);
+    }
+    function showNextSlide() {
+        direction = 'next';
+        handleChangeSlide('next')
+
     }
 
     function showPrevSlide() {
         direction = 'prev';
-        prevSlideIndex = currentSlide;
-        currentSlide = (currentSlide - 1 + carouselItems.length) % carouselItems.length;
-        isInitialRender = false;
-        showSlide(currentSlide);
+        handleChangeSlide('prev');
+
     }
 
     // Добавляем обработчики событий для кнопок переключения слайдов
